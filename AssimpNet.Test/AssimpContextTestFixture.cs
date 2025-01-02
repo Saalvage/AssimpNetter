@@ -385,12 +385,12 @@ namespace Assimp.Test
         {
             LogStream.IsVerboseLoggingEnabled = true;
 
-            ThreadStart[] actions =
-            [
+            ThreadStart[] actions = new ThreadStart[]
+            {
                 LoadSceneA,
                 LoadSceneB,
                 ConvertSceneC,
-            ];
+            };
 
             var threads = Enumerable.Repeat(actions, 25)
                 .SelectMany(x => x)
