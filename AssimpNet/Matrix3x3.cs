@@ -495,6 +495,7 @@ namespace Assimp
                                 1 => v.X,
                                 2 => v.Y,
                                 3 => v.Z,
+                                _ => 0,
                             };
                         }
                     }
