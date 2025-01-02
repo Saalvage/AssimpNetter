@@ -1358,7 +1358,7 @@ namespace Assimp
             int count = GetMaterialTextureCount(type);
 
             if(count == 0)
-                return [];
+                return Array.Empty<TextureSlot>();
 
             TextureSlot[] textures = new TextureSlot[count];
 

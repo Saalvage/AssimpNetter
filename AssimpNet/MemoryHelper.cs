@@ -135,7 +135,7 @@ namespace Assimp
             where Native : struct
         {
             if(nativeArray == IntPtr.Zero || length == 0)
-                return [];
+                return Array.Empty<Managed>();
 
             //If the pointer is a void** we need to step by the pointer size, otherwise it's just a void* and step by the type size.
             int stride = (arrayOfPointers) ? IntPtr.Size : MarshalSizeOf<Native>();

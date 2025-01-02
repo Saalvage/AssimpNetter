@@ -183,7 +183,7 @@ namespace Assimp.Unmanaged
             int count = (int) GetFunction<Functions.aiGetExportFormatCount>(FunctionNames.aiGetExportFormatCount)().ToUInt32();
 
             if(count == 0)
-                return [];
+                return Array.Empty<ExportFormatDescription>();
 
             ExportFormatDescription[] descriptions = new ExportFormatDescription[count];
 
