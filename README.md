@@ -25,7 +25,7 @@ The library is split between two parts, a low level and a high level. The intent
 
 ## Supported Frameworks ##
 
-The library runs on **.NET 7**.
+The library runs on **.NET 5**.
 
 ## Supported Platforms ##
 

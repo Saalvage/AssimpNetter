@@ -484,7 +484,19 @@ namespace Assimp
                 {
                     for(int j = 1; j < 4; j++)
                     {
-                        m[i, j] = -c1 * u[i] * u[j] - c2 * v[i] * v[j] + c3 * v[i] * u[j];
+                        m[i, j] = -c1 * Index(u, i) * Index(u, j) - c2 * Index(v, i) * Index(v, j) + c3 * Index(v, i) * Index(u, j);
+
+                        continue;
+
+                        static float Index(Vector3 v, int i)
+                        {
+                            return i switch
+                            {
+                                1 => v.X,
+                                2 => v.Y,
+                                3 => v.Z,
+                            };
+                        }
                     }
                     m[i, i] += 1.0f;
                 }
