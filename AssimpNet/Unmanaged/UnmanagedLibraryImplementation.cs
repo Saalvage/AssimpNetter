@@ -148,7 +148,8 @@ namespace Assimp.Unmanaged
             return funcType.GetCustomAttribute<UnmanagedFunctionNameAttribute>(false)?.UnmanagedFunctionName;
         }
 
-        private IntPtr NativeLoadLibrary(string path) => NativeLibrary.Load(path, Assembly.GetExecutingAssembly(), null);
+        private IntPtr NativeLoadLibrary(string path) => NativeLibrary.Load(
+            RuntimeInformation.IsOSPlatform(OSPlatform.Windows) ? path : ("lib" + path), Assembly.GetExecutingAssembly(), null);
         private void NativeFreeLibrary(IntPtr handle) => NativeLibrary.Free(handle);
 
         private IntPtr NativeGetProcAddress(IntPtr handle, string functionName) =>
