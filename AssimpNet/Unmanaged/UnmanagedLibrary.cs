@@ -127,8 +127,7 @@ namespace Assimp.Unmanaged
         /// <returns>True if the library was found and successfully loaded.</returns>
         public bool LoadLibrary()
         {
-            string libPath = m_resolver.ResolveLibraryPath(DefaultLibraryName);
-            return LoadLibrary(libPath);
+            return LoadLibrary(DefaultLibraryName);
         }
 
         /// <summary>
@@ -155,10 +154,6 @@ namespace Assimp.Unmanaged
                 System.Diagnostics.Debug.Assert(false, "Library already loaded");
                 return true;
             }
-
-            //Automatically append extension if necessary
-            if(!string.IsNullOrEmpty(libPath) && !Path.HasExtension(libPath))
-                libPath = Path.ChangeExtension(libPath, m_impl.DllExtension);
 
             if(m_impl.LoadLibrary(libPath))
             {
@@ -248,94 +243,7 @@ namespace Assimp.Unmanaged
         {
             Platform platform = GetPlatform();
             m_resolver = new UnmanagedLibraryResolver(platform);
-            m_impl = CreateRuntimeImplementationForPlatform(platform, defaultLibName, unmanagedFunctionDelegateTypes);
-        }
-
-        private UnmanagedLibraryImplementation CreateRuntimeImplementationForPlatform(Platform platform, string defaultLibName, Type[] unmanagedFunctionDelegateTypes)
-        {
-            switch(platform)
-            {
-                case Platform.Windows:
-                    return CreateRuntimeImplementationForWindowsPlatform(defaultLibName, unmanagedFunctionDelegateTypes);
-                case Platform.Linux:
-                    return CreateRuntimeImplementationForLinuxPlatform(defaultLibName, unmanagedFunctionDelegateTypes);
-                case Platform.Mac:
-                    return CreateRuntimeImplementationForMacPlatform(defaultLibName, unmanagedFunctionDelegateTypes);
-            }
-
-            throw new PlatformNotSupportedException();
-        }
-
-        private UnmanagedLibraryImplementation CreateRuntimeImplementationForWindowsPlatform(string defaultLibName, Type[] unmanagedFunctionDelegateTypes)
-        {
-            try
-            {
-                // If we can't load regular DLLs this will error
-                NativeMethods.WinNativeLoadLibrary("non-existent-dll-that-is-never-used.dll");
-
-                return new UnmanagedWin32LibraryImplementation(defaultLibName, unmanagedFunctionDelegateTypes);
-            }
-            catch (Exception e) when (e is DllNotFoundException || e is EntryPointNotFoundException)
-            {
-                // Continue with fallback.
-            }
-
-            try
-            {
-                //If we're running in an UWP context, we need to use LoadPackagedLibrary. On non-UWP contexts, this
-                //will fail with APPMODEL_ERROR_NO_PACKAGE, so fall back to LoadLibrary.
-                NativeMethods.WinUwpLoadLibrary("non-existent-dll-that-is-never-used.dll");
-
-                return new UnmanagedUwpLibraryImplementation(defaultLibName, unmanagedFunctionDelegateTypes);
-            }
-            catch (Exception e) when (e is DllNotFoundException || e is EntryPointNotFoundException)
-            {
-                // Continue with fallback.
-            }
-
-            throw new PlatformNotSupportedException(
-                "Windows system detected, but neither Win32 LoadLibrary nor UWP LoadPackagedLibrary could be " +
-                "called, which are necessary to load the Assimp DLL. Your version of Windows is likely not supported."
-            );
-        }
-
-        private UnmanagedLibraryImplementation CreateRuntimeImplementationForMacPlatform(string defaultLibName, Type[] unmanagedFunctionDelegateTypes)
-        {
-            return new UnmanagedMacLibraryImplementation(defaultLibName, unmanagedFunctionDelegateTypes);
-        }
-
-        private UnmanagedLibraryImplementation CreateRuntimeImplementationForLinuxPlatform(string defaultLibName, Type[] unmanagedFunctionDelegateTypes)
-        {
-            try 
-            {
-                NativeMethods.libc6_dlerror();
-
-                return new UnmanagedLinuxLibc6LibraryImplementation(defaultLibName, unmanagedFunctionDelegateTypes);
-            }
-            catch (Exception e) when (e is DllNotFoundException || e is EntryPointNotFoundException) 
-            {
-                // Continue with fallback.
-            }
-
-            try
-            {
-                //Recent versions of glibc include the dl* symbols in the main library, and the C library is pretty much
-                //always present in applications. Older versions glibc don't include these symbols in libc.so, and
-                //require loading libdl separately instead.
-                NativeMethods.libdl_dlerror();
-
-                return new UnmanagedLinuxLibdlLibraryImplementation(defaultLibName, unmanagedFunctionDelegateTypes);
-            }
-            catch (Exception e) when (e is DllNotFoundException || e is EntryPointNotFoundException)
-            {
-                // Continue with fallback.
-            }
-
-            throw new PlatformNotSupportedException(
-                "Linux system detected, but neither libc.so.6 nor libdl.so contains symbol " +
-                "'dlopen' necessary to load Assimp DLL. Check that either of these so files are " +
-                "present on your (Linux) system and correctly expose this symbol."
-            );
+            m_impl = new UnmanagedLibraryImplementation(defaultLibName, unmanagedFunctionDelegateTypes);
         }
 
         private static class NativeMethods

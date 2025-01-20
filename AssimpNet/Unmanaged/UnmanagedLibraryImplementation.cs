@@ -28,7 +28,7 @@ using System.Runtime.InteropServices;
 
 namespace Assimp.Unmanaged
 {
-    internal abstract class UnmanagedLibraryImplementation : IDisposable
+    internal class UnmanagedLibraryImplementation : IDisposable
     {
         private string m_defaultLibName;
         private Type[] m_unmanagedFunctionDelegateTypes;
@@ -49,13 +49,9 @@ namespace Assimp.Unmanaged
             set => m_throwOnLoadFailure = value;
         }
 
-        public abstract string DllExtension { get; }
-
-        public virtual string DllPrefix => string.Empty;
-
         public UnmanagedLibraryImplementation(string defaultLibName, Type[] unmanagedFunctionDelegateTypes)
         {
-            m_defaultLibName = DllPrefix + Path.ChangeExtension(defaultLibName, DllExtension);
+            m_defaultLibName = defaultLibName;
 
             m_unmanagedFunctionDelegateTypes = unmanagedFunctionDelegateTypes;
 
@@ -152,9 +148,11 @@ namespace Assimp.Unmanaged
             return funcType.GetCustomAttribute<UnmanagedFunctionNameAttribute>(false)?.UnmanagedFunctionName;
         }
 
-        protected abstract IntPtr NativeLoadLibrary(string path);
-        protected abstract void NativeFreeLibrary(IntPtr handle);
-        protected abstract IntPtr NativeGetProcAddress(IntPtr handle, string functionName);
+        private IntPtr NativeLoadLibrary(string path) => NativeLibrary.Load(path, Assembly.GetExecutingAssembly(), null);
+        private void NativeFreeLibrary(IntPtr handle) => NativeLibrary.Free(handle);
+
+        private IntPtr NativeGetProcAddress(IntPtr handle, string functionName) =>
+            NativeLibrary.TryGetExport(handle, functionName, out var proc) ? proc : throw new("");
 
         public void Dispose()
         {
