@@ -1378,7 +1378,7 @@ namespace Assimp
         /// <returns>The array of textures</returns>
         public IEnumerable<TextureSlot> GetAllMaterialTextures()
         {
-            return Enum.GetValues<TextureType>().SelectMany(GetMaterialTextures);
+            return EnumPolyfill.GetValues<TextureType>().SelectMany(GetMaterialTextures);
         }
 
         #region IMarshalable Implementation
