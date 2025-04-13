@@ -1,7 +1,9 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
+    <IsLinux>$([System.Runtime.InteropServices.RuntimeInformation]::IsOSPlatform($([System.Runtime.InteropServices.OSPlatform]::get_Linux())))</IsLinux>
     <TargetFrameworks>net9.0;net8.0;net6.0;net48</TargetFrameworks>
+    <TargetFrameworks Condition=" '$(IsLinux)' == 'true' ">net9.0;net8.0;net6.0</TargetFrameworks>
     <RootNamespace>Assimp.Test</RootNamespace>
     <LangVersion>latest</LangVersion>
     <ForceCopyNativeAssimp>true</ForceCopyNativeAssimp>
