@@ -1,7 +1,9 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
-    <TargetFrameworks>net5.0</TargetFrameworks>
+    <IsLinux>$([System.Runtime.InteropServices.RuntimeInformation]::IsOSPlatform($([System.Runtime.InteropServices.OSPlatform]::get_Linux())))</IsLinux>
+    <TargetFrameworks>net9.0;net8.0;net6.0;net48</TargetFrameworks>
+    <TargetFrameworks Condition=" '$(IsLinux)' == 'true' ">net9.0;net8.0;net6.0</TargetFrameworks>
     <LangVersion>latest</LangVersion>
     <GenerateAssemblyInfo>true</GenerateAssemblyInfo>
     <AllowUnsafeBlocks>true</AllowUnsafeBlocks>
@@ -43,6 +45,14 @@
     <Content Include="..\Docs\AssimpNet Documentation %28October 2018%29.chm" Link="nuget\AssimpNet Documentation %28October 2018%29.chm" PackagePath="" />
     <Content Include="..\libs\Assimp\**" Link="nuget\runtimes\%(RecursiveDir)native\%(Filename)%(Extension)" PackagePath="runtimes\%(RecursiveDir)native\%(Filename)%(Extension)" />
     <Content Include="AssimpNetter.targets" Link="nuget\build\AssimpNetter.targets" PackagePath="build" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Polyfill" Version="7.24.0">
+      <PrivateAssets>all</PrivateAssets>
+      <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
+    </PackageReference>
+    <PackageReference Include="System.Memory" Version="4.6.2" />
   </ItemGroup>
 
   <ItemGroup>

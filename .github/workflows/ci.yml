@@ -35,7 +35,10 @@ jobs:
 
       - uses: actions/setup-dotnet@v4
         with:
-          dotnet-version: 6.x.x
+          dotnet-version: |
+            6.x.x
+            8.x.x
+            9.x.x
         
       - run: dotnet test AssimpNet.Test -c ${{ matrix.configuration }} ${{ matrix.additional_args }}
           
