@@ -218,6 +218,33 @@ namespace Assimp
         }
 
         /// <summary>
+        /// Will try to locate a bone described by its name.
+        /// </summary>
+        /// <param name="name">The name to look for.</param>
+        /// <returns>The bone.</returns>
+        public Bone FindBone(string name)
+        {
+            if(HasMeshes)
+            {
+                foreach(Mesh mesh in m_meshes)
+                {
+                    if(mesh is { HasBones: true })
+                    {
+                        foreach(Bone bone in mesh.Bones)
+                        {
+                            if(bone != null && bone.Name == name)
+                            {
+                                return bone;
+                            }
+                        }
+                    }
+                }
+            }
+
+            return null;
+        }
+
+        /// <summary>
         /// Gets an embedded texture by a string. The string may be a texture ID in the format of "*1" or is the
         /// file name of the texture.
         /// </summary>

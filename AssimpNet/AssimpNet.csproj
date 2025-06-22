@@ -10,7 +10,7 @@
     <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
     <Authors>Nicholas Woodfield, Salvage</Authors>
     <Company />
-    <Version>5.4.3.4</Version>
+    <Version>6.0.2.0</Version>
     <PackageLicenseFile>License.txt</PackageLicenseFile>
     <Copyright>Copyright © 2012-2020 Nicholas Woodfield, © 2024-2025 Salvage</Copyright>
     <PackageIcon>logo.png</PackageIcon>

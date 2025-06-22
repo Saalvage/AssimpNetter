@@ -1102,6 +1102,19 @@ namespace Assimp
         /// Maya material declaration for a specular roughness texture.
         /// </summary>
         MayaSpecularRoughness = 25,
+
+        /// <summary>
+        /// Simulates a surface with directional properties.
+        /// </summary>
+        Anisotropy = 26,
+
+        /// <summary>
+        /// Textures for metalness and roughness properties packed together in a single texture.
+        /// Its green channel contains roughness values and its blue channel contains metalness values.
+        /// <a href="https://registry.khronos.org/glTF/specs/2.0/glTF-2.0.html#metallic-roughness-material"/>
+        /// <a href="https://registry.khronos.org/glTF/specs/2.0/glTF-2.0.html#_material_pbrmetallicroughness_metallicroughnesstexture"/>
+        /// </summary>
+        GltfMetallicRoughness = 27,
     }
 
     /// <summary>

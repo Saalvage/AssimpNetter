@@ -591,6 +591,13 @@ namespace Assimp.Unmanaged
         public const string AI_CONFIG_FBX_CONVERT_TO_M = "AI_CONFIG_FBX_CONVERT_TO_M";
 
         /// <summary>
+        /// Specifies whether the importer should ignore the embedded axis directions in the FBX file and load it as is.
+        /// <para>Type: Bool. Default: false.</para>
+        /// <remarks>Prior to Assimp v6.x.x the behavior was equivalent to the property being set to true.</remarks>
+        /// </summary>
+        public const string AI_CONFIG_IMPORT_FBX_IGNORE_UP_DIRECTION = "AI_CONFIG_IMPORT_FBX_IGNORE_UP_DIRECTION";
+
+        /// <summary>
         /// Specifies whether the importer will load multiple animations.
         /// <para>Type: Bool. Default: true.</para>
         /// </summary>

@@ -1870,6 +1870,25 @@ namespace Assimp.Configs
     }
 
     /// <summary>
+    /// Specifies whether the importer should ignore the embedded axis directions in the FBX file and load it as is. Default value is false.
+    /// </summary>
+    public sealed class FBXIgnoreUpDirectionConfig : BooleanPropertyConfig
+    {
+        /// <summary>
+        /// Gets the string name used by FBXIgnoreUpDirectionConfig.
+        /// </summary>
+        public static string FBXIgnoreUpDirectionConfigName => AiConfigs.AI_CONFIG_IMPORT_FBX_IGNORE_UP_DIRECTION;
+
+        /// <summary>
+        /// Constructs a new FBXIgnoreUpDirectionConfig.
+        /// </summary>
+        /// <param name="ignoreUpDirection">True if the importer should ignore the embedded axis directions,
+        /// false if the file should be loaded as is.</param>
+        public FBXIgnoreUpDirectionConfig(bool ignoreUpDirection)
+            : base(FBXIgnoreUpDirectionConfigName, ignoreUpDirection, false) { }
+    }
+
+    /// <summary>
     /// Specifies whether the importer will load multiple animations. Default value is true.
     /// </summary>
     public sealed class SmdLoadAnimationListConfig : BooleanPropertyConfig
