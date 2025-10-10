@@ -34,8 +34,6 @@ jobs:
       - uses: actions/checkout@v4
 
       - uses: actions/setup-dotnet@v4
-        with:
-          dotnet-version: 6.x.x
         
       - run: dotnet test AssimpNet.Test -c ${{ matrix.configuration }} ${{ matrix.additional_args }}
           
