@@ -25,13 +25,13 @@ The library is split between two parts, a low level and a high level. The intent
 
 ## Supported Frameworks ##
 
-The library runs on **.NET 5**.
+The library supports **.NET >= 4.7.2** and **.NET Standard 2.1**.
 
 ## Supported Platforms ##
 
 The NuGet package supports the following Operating Systems and Architectures out of the box (located in the *runtimes* folder, under [RID](https://docs.microsoft.com/en-us/dotnet/core/rid-catalog)-specific folders):
 
-* **Windows** 
+* **Windows**
 	* x86, x64 (Tested on Windows 10), ARM64
 * **Linux**
 	* x64, ARM64 (Tested on Ubuntu 24.04 Noble Numbat)

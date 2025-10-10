@@ -1,7 +1,7 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
-    <TargetFrameworks>net5.0</TargetFrameworks>
+    <TargetFrameworks>net6.0;net5.0;net48;net472;netstandard2.1</TargetFrameworks>
     <LangVersion>latest</LangVersion>
     <GenerateAssemblyInfo>true</GenerateAssemblyInfo>
     <AllowUnsafeBlocks>true</AllowUnsafeBlocks>
@@ -10,7 +10,7 @@
     <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
     <Authors>Nicholas Woodfield, Salvage</Authors>
     <Company />
-    <Version>6.0.2.0</Version>
+    <Version>6.0.2.1</Version>
     <PackageLicenseFile>License.txt</PackageLicenseFile>
     <Copyright>Copyright © 2012-2020 Nicholas Woodfield, © 2024-2025 Salvage</Copyright>
     <PackageIcon>logo.png</PackageIcon>
@@ -27,6 +27,7 @@
     <Title>AssimpNet</Title>
     <PackageReadmeFile>README.md</PackageReadmeFile>
     <GenerateDocumentationFile>True</GenerateDocumentationFile>
+    <NoWarn>$(NoWarn);PolyfillTargetsForNuget</NoWarn>
   </PropertyGroup>
 
   <PropertyGroup Condition="'$(Configuration)'=='Release'">
@@ -50,6 +51,16 @@
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
       <Link>runtimes\%(RecursiveDir)\native\%(Filename)%(Extension)</Link>
     </None>
+  </ItemGroup>
+
+  <!-- Packages required for legacy versions -->
+  <ItemGroup Condition="'$(TargetFramework)' == 'net472' Or '$(TargetFramework)' == 'net48' Or '$(TargetFramework)' == 'netstandard2.1'">
+    <PackageReference Include="Polyfill" Version="8.9.0">
+      <PrivateAssets>all</PrivateAssets>
+      <IncludeAssets>runtime; build; native; contentfiles; analyzers</IncludeAssets>
+    </PackageReference>
+    <PackageReference Condition="'$(TargetFramework)' == 'net472' Or '$(TargetFramework)' == 'net48'" Include="System.Memory" Version="4.6.2" />
+    <PackageReference Condition="'$(TargetFramework)' == 'netstandard2.1'" Include="System.Runtime.CompilerServices.Unsafe" Version="6.1.2" />
   </ItemGroup>
 
   <!-- Copies Unity plugin files into a folder with Release build DLLs which can be drag n dropped into a unity project -->
