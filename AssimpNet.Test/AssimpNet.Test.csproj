@@ -1,7 +1,7 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
-    <TargetFrameworks>net8.0</TargetFrameworks>
+    <TargetFrameworks>net8.0;net6.0;net48;net472</TargetFrameworks>
     <RootNamespace>Assimp.Test</RootNamespace>
     <LangVersion>latest</LangVersion>
     <ForceCopyNativeAssimp>true</ForceCopyNativeAssimp>
