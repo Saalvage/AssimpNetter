@@ -1227,37 +1227,65 @@ namespace Assimp
             MaterialProperty texFlagsNameProp = GetProperty(texFlagsName);
 
             if(mappingNameProp == null)
-                AddProperty(new MaterialProperty(AiMatKeys.MAPPING_BASE, (int) texture.Mapping));
+                AddProperty(new MaterialProperty(AiMatKeys.MAPPING_BASE, (int) texture.Mapping)
+                {
+                    TextureIndex = texIndex,
+                    TextureType = texType
+                });
             else
                 mappingNameProp.SetIntegerValue((int) texture.Mapping);
 
             if(uvIndexNameProp == null)
-                AddProperty(new MaterialProperty(AiMatKeys.MAPPING_BASE, (int) texture.Mapping));
+                AddProperty(new MaterialProperty(AiMatKeys.MAPPING_BASE, (int) texture.Mapping)
+                {
+                    TextureIndex = texIndex,
+                    TextureType = texType
+                });
             else
                 uvIndexNameProp.SetIntegerValue(texture.UVIndex);
 
             if(blendFactorNameProp == null)
-                AddProperty(new MaterialProperty(AiMatKeys.TEXBLEND_BASE, texture.BlendFactor));
+                AddProperty(new MaterialProperty(AiMatKeys.TEXBLEND_BASE, texture.BlendFactor)
+                {
+                    TextureIndex = texIndex,
+                    TextureType = texType
+                });
             else
                 blendFactorNameProp.SetFloatValue(texture.BlendFactor);
 
             if(texOpNameProp == null)
-                AddProperty(new MaterialProperty(AiMatKeys.TEXOP_BASE, (int) texture.Operation));
+                AddProperty(new MaterialProperty(AiMatKeys.TEXOP_BASE, (int) texture.Operation)
+                {
+                    TextureIndex = texIndex,
+                    TextureType = texType
+                });
             else
                 texOpNameProp.SetIntegerValue((int) texture.Operation);
 
             if(uMapModeNameProp == null)
-                AddProperty(new MaterialProperty(AiMatKeys.MAPPINGMODE_U_BASE, (int) texture.WrapModeU));
+                AddProperty(new MaterialProperty(AiMatKeys.MAPPINGMODE_U_BASE, (int) texture.WrapModeU)
+                {
+                    TextureIndex = texIndex,
+                    TextureType = texType
+                });
             else
                 uMapModeNameProp.SetIntegerValue((int) texture.WrapModeU);
 
             if(vMapModeNameProp == null)
-                AddProperty(new MaterialProperty(AiMatKeys.MAPPINGMODE_V_BASE, (int) texture.WrapModeV));
+                AddProperty(new MaterialProperty(AiMatKeys.MAPPINGMODE_V_BASE, (int) texture.WrapModeV)
+                {
+                    TextureIndex = texIndex,
+                    TextureType = texType
+                });
             else
                 vMapModeNameProp.SetIntegerValue((int) texture.WrapModeV);
 
             if(texFlagsNameProp == null)
-                AddProperty(new MaterialProperty(AiMatKeys.TEXFLAGS_BASE, texture.Flags));
+                AddProperty(new MaterialProperty(AiMatKeys.TEXFLAGS_BASE, (int) texture.Flags)
+                {
+                    TextureIndex = texIndex,
+                    TextureType = texType
+                });
             else
                 texFlagsNameProp.SetIntegerValue(texture.Flags);
 
