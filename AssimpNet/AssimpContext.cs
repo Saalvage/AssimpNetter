@@ -195,7 +195,15 @@ namespace Assimp
 
                 TransformScene(ptr);
 
-                ptr = ApplyPostProcessing(ptr, postProcessFlags);
+                try
+                {
+                    ptr = ApplyPostProcessing(ptr, postProcessFlags);
+                }
+                catch (AssimpException)
+                {
+                    ptr = IntPtr.Zero;
+                    throw;
+                }
 
                 return Scene.FromUnmanagedScene(ptr);
             }
@@ -266,7 +274,15 @@ namespace Assimp
 
                 TransformScene(ptr);
 
-                ptr = ApplyPostProcessing(ptr, postProcessFlags);
+                try
+                {
+                    ptr = ApplyPostProcessing(ptr, postProcessFlags);
+                }
+                catch (AssimpException)
+                {
+                    ptr = IntPtr.Zero;
+                    throw;
+                }
 
                 return Scene.FromUnmanagedScene(ptr);
             }
@@ -475,7 +491,15 @@ namespace Assimp
 
                 TransformScene(ptr);
 
-                ptr = ApplyPostProcessing(ptr, importProcessSteps);
+                try
+                {
+                    ptr = ApplyPostProcessing(ptr, importProcessSteps);
+                }
+                catch (AssimpException)
+                {
+                    ptr = IntPtr.Zero;
+                    throw;
+                }
 
                 ReturnCode status = AssimpLibrary.Instance.ExportScene(ptr, exportFormatId, outputFilename, fileIO, exportProcessSteps);
 
@@ -565,7 +589,15 @@ namespace Assimp
 
                 TransformScene(ptr);
 
-                ptr = ApplyPostProcessing(ptr, importProcessSteps);
+                try
+                {
+                    ptr = ApplyPostProcessing(ptr, importProcessSteps);
+                }
+                catch (AssimpException)
+                {
+                    ptr = IntPtr.Zero;
+                    throw;
+                }
 
                 return AssimpLibrary.Instance.ExportSceneToBlob(ptr, exportFormatId, exportProcessSteps);
             }
@@ -660,7 +692,15 @@ namespace Assimp
 
                 TransformScene(ptr);
 
-                ptr = ApplyPostProcessing(ptr, importProcessSteps);
+                try
+                {
+                    ptr = ApplyPostProcessing(ptr, importProcessSteps);
+                }
+                catch (AssimpException)
+                {
+                    ptr = IntPtr.Zero;
+                    throw;
+                }
 
                 ReturnCode status = AssimpLibrary.Instance.ExportScene(ptr, exportFormatId, outputFilename, exportProcessSteps);
 
@@ -750,7 +790,15 @@ namespace Assimp
 
                 TransformScene(ptr);
 
-                ptr = ApplyPostProcessing(ptr, importProcessSteps);
+                try
+                {
+                    ptr = ApplyPostProcessing(ptr, importProcessSteps);
+                }
+                catch (AssimpException)
+                {
+                    ptr = IntPtr.Zero;
+                    throw;
+                }
 
                 return AssimpLibrary.Instance.ExportSceneToBlob(ptr, exportFormatId, exportProcessSteps);
             }
